@@ -9,7 +9,7 @@ def create_app():
     app.register_blueprint(blueprint=blue)
 
     # db_uri = 'sqlite:///sqlite3.db'
-    db_uri = 'mysql+pymysql://root:root@127.0.0.1:3306/blog?charset=utf8mb4'
+    db_uri = 'mysql+pymysql://blog:fhyoni@150.158.124.90:3306/blog?charset=utf8mb4'
     app.config['SQLALCHEMY_DATABASE_URI'] = db_uri
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     init_exts(app)
