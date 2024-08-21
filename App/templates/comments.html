@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+{% for item in comments_with_articles %}
+<div class="card">
+    <div class="card-header">
+      评论
+    </div>
+    <div class="card-body">
+      <blockquote class="blockquote mb-0">
+        <p>{{ item.article.title}}</p>
+        <footer class="blockquote-footer">{{ item.comment.text }}</footer>
+      </blockquote>
+    </div>
+  </div>
+{% endfor %}
+
+{% endblock %}
