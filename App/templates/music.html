@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Music Player</title>
+</head>
+<body>
+    <h1>Music Player</h1>
+    
+    <audio id="audioPlayer" controls>
+        <source src="https://open.spotify.com/track/05yDoVDvARdRQCzDNNd6a1?si=73f9035b5d6d4621" type="audio/mp3">
+        浏览器不支持
+    </audio>
+    
+    <script>
+        // JavaScript code to control the music player
+        const audioPlayer = document.getElementById('audioPlayer');
+        
+        // Function to play the audio
+        function playAudio() {
+            audioPlayer.play();
+        }
+        
+        // Function to pause the audio
+        function pauseAudio() {
+            audioPlayer.pause();
+        }
+        
+        // Function to stop the audio
+        function stopAudio() {
+            audioPlayer.pause();
+            audioPlayer.currentTime = 0;
+        }
+    </script>
+</body>
+</html>

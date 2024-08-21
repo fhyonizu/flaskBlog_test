@@ -38,3 +38,13 @@ def get_comments():
             'article': article
         })
     return render_template('comments.html', comments_with_articles=comments_with_articles)
+
+@blue.route('/about/')
+def get_about():
+    
+    return render_template('about.html')
+
+@blue.route('/music/')
+def get_amusic():
+    
+    return render_template('music.html')
