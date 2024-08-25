@@ -37,7 +37,7 @@ def add_comment(article_id):
     else:
         db.session.rollback()
         flash('评论失败', 'danger')
-    return redirect(url_for('article.index'))
+    return redirect(url_for('article.get_flash'))
 
 
 @blue.route('/comments/')
@@ -59,6 +59,11 @@ def get_about():
     return render_template('about.html')
 
 
-@blue.route('/music/')
+@blue.route('/chat/')
 def get_amusic():
-    return render_template('music.html')
+    return render_template('chat.html')
+
+
+@blue.route('/flash/')
+def get_flash():
+    return render_template('flash.html')

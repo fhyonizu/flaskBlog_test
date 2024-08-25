@@ -14,7 +14,10 @@ def create_app():
     app.config['SQLALCHEMY_DATABASE_URI'] = db_uri
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {
-        'pool_timeout': 30  # 设置超时时间为30秒
+        'pool_pre_ping': True,  # 确保连接有效性
+        'pool_timeout': 30,  # 设置超时时间为30秒
+        'pool_size': 10,  # 设置连接池大小为10
+        'max_overflow': 20,  # 允许连接池溢出20个连接
     }
 
     init_exts(app)
