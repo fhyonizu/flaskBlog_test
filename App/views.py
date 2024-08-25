@@ -60,10 +60,27 @@ def get_about():
 
 
 @blue.route('/chat/')
-def get_amusic():
+def get_chat():
     return render_template('chat.html')
 
 
 @blue.route('/flash/')
 def get_flash():
     return render_template('flash.html')
+
+@socketio.on('message')
+def handle_message(msg):
+    print(f"Message: {msg}")
+    send(msg, broadcast=True)
+
+@socketio.on('join')
+def handle_join(data):
+    room = data['room']
+    join_room(room)
+    send(f"{data['username']} 进入房间: {room}.", room=room)
+
+@socketio.on('leave')
+def handle_leave(data):
+    room = data['room']
+    leave_room(room)
+    send(f"{data['username']} 离开了房间: {room}.", room=room)

@@ -1,5 +1,50 @@
+
+
+
 {% extends 'base.html' %}
+{% block link %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.4.1/socket.io.js"></script>
+{% endblock %}
 {% block content %}
-<h1>功能完善中,请稍等٩(ŏ﹏ŏ、)۶</h1>
-    <
+    {#<h1>功能完善中,请稍等٩(ŏ﹏ŏ、)۶</h1>#}
+    <h2 class="text-center">公共聊天室</h2>
+    <hr>
+    <div style="width: 80%; height: 400px;overflow: auto">
+        <div id="chat-box">
+
+        </div>
+    </div>
+
+    <div class="input-group mb-3">
+        <input type="text" class="form-control" id="message" placeholder="输入发送内容"
+               aria-label="Recipient's username" aria-describedby="button-addon2">
+        <div class="input-group-append">
+            <button class="btn btn-outline-secondary" type="button" id="button-addon2" onclick="sendMessage()">发送
+            </button>
+        </div>
+    </div>
+    <script>
+        const socket = io.connect('http://' + document.domain + ':' + location.port);
+
+        socket.on('connect', () => {
+            const username = prompt("输入你的名字");
+            const room = prompt("要进入的房间号");
+            socket.emit('join', {'username': username, 'room': room});
+        });
+
+        socket.on('message', (msg) => {
+            const chatBox = document.getElementById('chat-box');
+            const messageElement = document.createElement('p');
+            messageElement.textContent = msg;
+            chatBox.appendChild(messageElement);
+        });
+
+        function sendMessage() {
+            const messageInput = document.getElementById('message');
+            const message = messageInput.value;
+            socket.send(message);
+            messageInput.value = '';
+        }
+
+    </script>
 {% endblock %}

@@ -6,7 +6,6 @@ from .exts import init_exts, db
 def create_app():
 
     app = Flask(__name__)
-    app.secret_key = 'asdfghjkl1234567890'
     app.register_blueprint(blueprint=blue)
 
     # db_uri = 'sqlite:///sqlite3.db'
@@ -19,6 +18,7 @@ def create_app():
         'pool_size': 10,  # 设置连接池大小为10
         'max_overflow': 20,  # 允许连接池溢出20个连接
     }
+    app.config['SECRET_KEY'] = 'awdfgc2323231ef'
 
     init_exts(app)
 
