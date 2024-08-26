@@ -6,9 +6,13 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.4.1/socket.io.js"></script>
 {% endblock %}
 {% block content %}
-    {#<h1>功能完善中,请稍等٩(ŏ﹏ŏ、)۶</h1>#}
     <h2 class="text-center">公共聊天室</h2>
     <hr>
+    <div style="width: 20%;margin: auto">
+        <input type="text" class="form-control" id="username" placeholder="用户名" aria-label="用户名">
+        <input type="text" class="form-control" id="room" placeholder="房间号" aria-label="房间号">
+        <button class="btn btn-primary" onclick="inputnameandroom()">加入</button>
+    </div>
     <div style="width: 80%; height: 400px;overflow: auto">
         <div id="chat-box">
 
@@ -17,7 +21,7 @@
 
     <div class="input-group mb-3">
         <input type="text" class="form-control" id="message" placeholder="输入发送内容"
-               aria-label="Recipient's username" aria-describedby="button-addon2">
+               aria-label="内容" aria-describedby="button-addon2" onkeydown="if (event.key === 'Enter') sendMessage();">
         <div class="input-group-append">
             <button class="btn btn-outline-secondary" type="button" id="button-addon2" onclick="sendMessage()">发送
             </button>
@@ -25,26 +29,48 @@
     </div>
     <script>
         const socket = io.connect('http://' + document.domain + ':' + location.port);
-
         socket.on('connect', () => {
-            const username = prompt("输入你的名字");
-            const room = prompt("要进入的房间号");
-            socket.emit('join', {'username': username, 'room': room});
+            console.log('socket连接成功')
         });
 
-        socket.on('message', (msg) => {
+        function inputnameandroom() {
+            const username = document.getElementById('username').value;
+            const room = document.getElementById('room').value;
+            const userdata = {
+                username: username,
+                room: room
+            };
+            if (username && room) {
+                console.log(JSON.stringify(userdata)+'userdata');
+                socket.emit('join',userdata);
+            } else {
+                alert('请输入用户名和房间号')
+            }
+        }
+
+        socket.on('message', (data) => {
+            {#const jsonData = JSON.parse(data);#}
             const chatBox = document.getElementById('chat-box');
             const messageElement = document.createElement('p');
-            messageElement.textContent = msg;
+
+            console.log(data+'data');
+            messageElement.textContent =data;
             chatBox.appendChild(messageElement);
         });
 
         function sendMessage() {
+            const username = document.getElementById('username').value.trim();
             const messageInput = document.getElementById('message');
-            const message = messageInput.value;
-            socket.send(message);
-            messageInput.value = '';
-        }
+            const msg = messageInput.value.trim();
+            const message = {
+                username: username,
+                message: msg
+            };
 
+            if (username && msg ) {
+                socket.send('用户'+ message.username + '说: ' + message.message);
+                messageInput.value  = '';
+            }
+        }
     </script>
 {% endblock %}

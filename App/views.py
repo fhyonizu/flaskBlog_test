@@ -1,3 +1,5 @@
+import json
+
 from flask import Blueprint, render_template, request, redirect, url_for, flash
 
 from .exts import *
@@ -75,9 +77,10 @@ def handle_message(msg):
 
 @socketio.on('join')
 def handle_join(data):
+    print(type(data))
     room = data['room']
     join_room(room)
-    send(f"{data['username']} 进入房间: {room}.", room=room)
+    send(f"{'用户'+data['username']+'进入了'+ room+'房间'}",room=room)
 
 @socketio.on('leave')
 def handle_leave(data):
