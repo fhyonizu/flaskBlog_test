@@ -1,28 +1,32 @@
-from flask import Flask
+from flask import Flask  # 导入 Flask 类
+from .models import db, Article, Comment  # 导入模型
 from .views import *
-from .exts import init_exts, db
-
+from .exts import init_exts
 
 def create_app():
+    app = Flask(__name__)  # 初始化 Flask 应用
+    app.register_blueprint(blue)
 
-    app = Flask(__name__)
-    app.register_blueprint(blueprint=blue)
-
-    # db_uri = 'sqlite:///sqlite3.db'
-    db_uri = 'mysql+pymysql://blog:fhyoni@150.158.124.90:3306/blog?charset=utf8mb4'
-    app.config['SQLALCHEMY_DATABASE_URI'] = db_uri
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-    app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {
-        'pool_pre_ping': True,  # 确保连接有效性
-        'pool_timeout': 30,  # 设置超时时间为30秒
-        'pool_size': 10,  # 设置连接池大小为10
-        'max_overflow': 20,  # 允许连接池溢出20个连接
-    }
     app.config['SECRET_KEY'] = 'awdfgc2323231ef'
 
     init_exts(app)
 
     with app.app_context():
-        db.create_all()
+        db.create_all()  # 创建数据库表格
+
+        # 插入默认数据
+        if not Article.query.first():  # 如果没有文章，则插入默认文章
+            default_article = Article(title='欢迎来到博客', content='这是第一篇博客文章！')
+            db.session.add(default_article)
+            db.session.commit()
+
+            # 插入与默认文章相关的评论
+            comment_1 = Comment(article_id=default_article.id, text='这篇文章非常有用！')
+            comment_2 = Comment(article_id=default_article.id, text='感谢分享！')
+            db.session.add(comment_1)
+            db.session.add(comment_2)
+            db.session.commit()
 
     return app
