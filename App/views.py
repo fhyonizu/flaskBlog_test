@@ -70,6 +70,31 @@ def get_chat():
 def get_flash():
     return render_template('flash.html')
 
+def handle_message(msg):
+    print(f"Message: {msg}")
+    send(msg, broadcast=True)
+
+@blue.route('/post/', methods=['GET', 'POST'])
+def post():
+    if request.method == 'POST':
+        title = request.form.get('title')
+        content = request.form.get('content')
+
+        if not title or not content:
+            flash("标题和内容不能为空", "danger")
+            return redirect(url_for('article.post'))
+
+        new_article = Article(title=title, content=content)
+        db.session.add(new_article)
+        db.session.commit()
+
+        flash("文章发布成功", "success")
+        return redirect(url_for('article.index'))
+
+    # GET 请求时渲染页面
+    return render_template('post.html')
+
+
 @socketio.on('message')
 def handle_message(msg):
     print(f"Message: {msg}")

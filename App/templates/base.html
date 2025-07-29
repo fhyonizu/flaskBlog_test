@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>My Blog</title>
+    <title>{% block title %}
+
+    {% endblock %}</title>
     
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
@@ -30,9 +32,21 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/comments/">留言</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/post/">发布帖子</a>
+                </li>
             </ul>
         </div>
-        <img src="{{ pic|default('/static/user_image/default.png') }}" style="height: 40px;border-radius: 50%">
+        {% if user %}
+  <a href="{{ url_for('auth.profile', user_id=user.id) }}">
+    <img src="{{ user.avatar or '/static/user_image/default.png' }}" style="height: 40px; border-radius: 50%;">
+  </a>
+{% else %}
+  <a href="{{ url_for('auth.login') }}">
+    <img src="/static/user_image/default.png" style="height: 40px; border-radius: 50%;">
+  </a>
+{% endif %}
+
     </nav>
 
     <div class="container" style="margin-top: 100px;">

@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}
+文章发布
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4">发布新文章</h2>
+
+    <form method="POST" action="{{ url_for('article.post') }}">
+        <div class="mb-3">
+            <label for="title" class="form-label">标题</label>
+            <input type="text" class="form-control" id="title" name="title" placeholder="请输入标题" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="content" class="form-label">内容</label>
+            <textarea class="form-control" id="content" name="content" rows="8" placeholder="请输入文章内容" required></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary">发布文章</button>
+        <a href="{{ url_for('article.index') }}" class="btn btn-secondary ms-2">返回首页</a>
+    </form>
+</div>
+{% endblock %}
