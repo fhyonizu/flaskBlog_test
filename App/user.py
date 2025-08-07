@@ -1,3 +1,6 @@
+from datetime import date
+import random
+
 from flask import Blueprint, render_template, request, redirect, url_for, flash, session
 from werkzeug.security import generate_password_hash, check_password_hash
 from .models import User
@@ -94,3 +97,30 @@ def profile(user_id):
     user = User.query.get_or_404(user_id)
     return render_template('profile.html', user=user)
 
+@auth.route('/checkin/', methods=['POST'])
+def checkin():
+    if 'user_id' not in session:
+        flash('请先登录')
+        return redirect(url_for('auth.login'))
+
+    user = User.query.get(session['user_id'])
+
+    today = date.today()
+    if user.last_checkin_date == today:
+        return render_template('profile.html', user=user, message="今天已签到，请勿重复签到")
+
+    # 随机经验值
+    exp = random.randint(5, 10)
+    user.exp += exp
+    user.last_checkin_date = today
+
+    # 升级逻辑
+    level_exp = [0, 100, 250, 450, 700, 1000]  # 每级所需经验
+    for lvl in range(user.level, 6):
+        if user.exp >= level_exp[lvl]:
+            user.level = lvl
+        else:
+            break
+
+    db.session.commit()
+    return render_template('profile.html', user=user, message=f"签到成功，获得 {exp} 点经验！")

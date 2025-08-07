@@ -1,20 +1,20 @@
 {% extends 'slideshow.html' %}
 
 {% block content2 %}
-
     {% for article in articles %}
     <div class="card text-center" style="margin: 50px;">
-    <div class="card-header">
-        <h2 class="card-title">{{ article.title }}</h2>
+        <div class="card-header">
+            <h2 class="card-title">{{ article.title }}</h2>
+           <p>作者：{{ article.author.username if article.author else '未知' }}</p>{# ⬅️ 添加这行 #}
+        </div>
+        <div class="card-body">
+            <p class="card-text">{{ article.content }}</p>
+            <a class="btn btn-primary" href="{{ url_for('article.get_words', article_id=article.id) }}">留言</a>
+            <p class="card-footer text-muted">
+            {{ article.timestamp.strftime('%Y年%m月%d日 %H:%M') }}
+            </p>
+
+        </div>
     </div>
-    <div class="card-body">
-        <p class="card-text">{{ article.content }}</p>
-        <a class="btn btn-primary" href="{{ url_for('article.get_words', article_id=article.id) }}">留言</a>
-        <p class="card-footer text-muted">{{ article.timestamp }}</p>
-    </div>
-    </div>
-    
     {% endfor %}
-
 {% endblock %}
-

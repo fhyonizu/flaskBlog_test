@@ -1,18 +1,18 @@
 import json
 
-from flask import Blueprint, render_template, request, redirect, url_for, flash
+from flask import Blueprint, render_template, request, redirect, url_for, flash,session
 
 from .exts import *
 from .models import *
+from sqlalchemy.orm import joinedload
 
 blue = Blueprint('article', __name__)
 
 
 @blue.route('/')
 def index():
-    articles = get_artics()
+    articles = Article.query.options(joinedload(Article.author)).all()
     return render_template('index.html', articles=articles)
-
 
 @blue.route('/artics/')
 @cache.cached(timeout=20)
@@ -63,8 +63,12 @@ def get_about():
 
 @blue.route('/chat/')
 def get_chat():
-    return render_template('chat.html')
-
+    username = None
+    if 'user_id' in session:
+        user = User.query.get(session['user_id'])
+        username = user.username
+        avatar = user.avatar
+    return render_template('chat.html', username=username,avatar=avatar)
 
 @blue.route('/flash/')
 def get_flash():
@@ -84,14 +88,29 @@ def post():
             flash("标题和内容不能为空", "danger")
             return redirect(url_for('article.post'))
 
-        new_article = Article(title=title, content=content)
+        if 'user_id' not in session:
+            flash("请先登录", "warning")
+            return redirect(url_for('auth.login'))
+
+        user = User.query.get(session['user_id'])
+        new_article = Article(title=title, content=content, author=user)
         db.session.add(new_article)
+
+        # 发帖加经验
+        user.exp += 10
+        while user.level < 5:
+            need = 100 + (user.level - 1) * 50
+            if user.exp >= need:
+                user.exp -= need
+                user.level += 1
+            else:
+                break
+
         db.session.commit()
 
-        flash("文章发布成功", "success")
+        flash("文章发布成功，获得 10 经验！", "success")
         return redirect(url_for('article.index'))
 
-    # GET 请求时渲染页面
     return render_template('post.html')
 
 

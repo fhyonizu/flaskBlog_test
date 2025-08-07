@@ -4,21 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8aacf8bf-e13f-445d-b178-1c7389e29e2d" name="更改" comment="修改为本地数据库，加入默认数据">
-      <changelist_data name="fhyonizu" email="fhyoni@163.com" automatic="false" />
-      <change afterPath="$PROJECT_DIR$/App/static/avatar/default.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/App/templates/login.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/App/templates/post.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/App/templates/profile.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/App/templates/register.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/App/user.py" afterDir="false" />
+    <list default="true" id="8aacf8bf-e13f-445d-b178-1c7389e29e2d" name="更改" comment="增加发布帖子功能，登录注册，个人信息功能">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/App/__init__.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/App/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/App/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/templates/about.html" beforeDir="false" afterPath="$PROJECT_DIR$/App/templates/about.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/App/templates/base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/App/templates/chat.html" beforeDir="false" afterPath="$PROJECT_DIR$/App/templates/chat.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/App/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/App/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/App/templates/profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/App/templates/profile.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/App/user.py" beforeDir="false" afterPath="$PROJECT_DIR$/App/user.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/App/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/App/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/instance/site.db" beforeDir="false" afterPath="$PROJECT_DIR$/instance/site.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/instance/site.db" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -68,29 +62,29 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "DefaultHtmlFileTemplate": "HTML File",
-    "Python.MyBlog.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "C:/Users/fhyoni/PycharmProjects/flaskBlog_test/App/static/avatar",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "project.propVCSSupport.Mappings",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;Python.MyBlog.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/fhyoni/PycharmProjects/flaskBlog_test/App/static/avatar&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.Mappings&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "sqlite"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;sqlite&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\fhyoni\PycharmProjects\flaskBlog_test\App\static\avatar" />
@@ -146,7 +140,10 @@
       <workItem from="1724638367008" duration="4125000" />
       <workItem from="1724642507578" duration="6436000" />
       <workItem from="1753284162655" duration="2265000" />
-      <workItem from="1753801534254" duration="9247000" />
+      <workItem from="1753801534254" duration="9892000" />
+      <workItem from="1753892631462" duration="2124000" />
+      <workItem from="1754208789727" duration="5311000" />
+      <workItem from="1754401656555" duration="2384000" />
     </task>
     <task id="LOCAL-00001" summary="修改为本地数据库，加入默认数据">
       <option name="closed" value="true" />
@@ -164,7 +161,15 @@
       <option name="project" value="LOCAL" />
       <updated>1753285473889</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="增加发布帖子功能，登录注册，个人信息功能">
+      <option name="closed" value="true" />
+      <created>1753811404355</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1753811404355</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -173,10 +178,11 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Update README.md" />
     <MESSAGE value="修改为本地数据库，加入默认数据" />
-    <option name="LAST_COMMIT_MESSAGE" value="修改为本地数据库，加入默认数据" />
+    <MESSAGE value="增加发布帖子功能，登录注册，个人信息功能" />
+    <option name="LAST_COMMIT_MESSAGE" value="增加发布帖子功能，登录注册，个人信息功能" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/MyBlog$MyBlog.coverage" NAME="MyBlog 覆盖结果" MODIFIED="1724647201257" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
-    <SUITE FILE_PATH="coverage/flaskBlog_test$MyBlog.coverage" NAME="MyBlog 覆盖结果" MODIFIED="1753810067619" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/flaskBlog_test$MyBlog.coverage" NAME="MyBlog 覆盖结果" MODIFIED="1754403779402" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
   </component>
 </project>

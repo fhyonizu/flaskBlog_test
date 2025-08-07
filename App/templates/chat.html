@@ -9,8 +9,11 @@
     <h2 class="text-center">公共聊天室</h2>
     <hr>
     <div style="width: 20%;margin: auto">
-        <input type="text" class="form-control" id="username" placeholder="用户名" aria-label="用户名">
-        <input type="text" class="form-control" id="room" placeholder="房间号" aria-label="房间号">
+<input type="hidden" id="username" value="{{ username }}">
+<input type="hidden" id="avatar" value="{{ avatar }}">
+<input type="text" class="form-control" id="room" placeholder="房间号">
+
+
         <button class="btn btn-primary" onclick="inputnameandroom()">加入</button>
     </div>
     <div style="width: 80%; height: 400px;overflow: auto">
@@ -28,49 +31,75 @@
         </div>
     </div>
     <script>
-        const socket = io.connect('http://' + document.domain + ':' + location.port);
         socket.on('connect', () => {
-            console.log('socket连接成功')
-        });
+    console.log('socket连接成功');
+  });
 
-        function inputnameandroom() {
-            const username = document.getElementById('username').value;
-            const room = document.getElementById('room').value;
-            const userdata = {
-                username: username,
-                room: room
-            };
-            if (username && room) {
-                console.log(JSON.stringify(userdata)+'userdata');
-                socket.emit('join',userdata);
-            } else {
-                alert('请输入用户名和房间号')
-            }
-        }
+  function inputnameandroom() {
+    const username = document.getElementById('username').value;
+    const avatar = document.getElementById('avatar').value;
+    const room = document.getElementById('room').value;
+    if (username && room) {
+      socket.emit('join', { username, avatar, room });
+    } else {
+      alert('请输入房间号');
+    }
+  }
 
-        socket.on('message', (data) => {
-            {#const jsonData = JSON.parse(data);#}
-            const chatBox = document.getElementById('chat-box');
-            const messageElement = document.createElement('p');
+  socket.on('message', (data) => {
+    const chatBox = document.getElementById('chat-box');
+    const bubble = document.createElement('div');
+    bubble.className = 'chat-bubble';
 
-            console.log(data+'data');
-            messageElement.textContent =data;
-            chatBox.appendChild(messageElement);
-        });
+    // 创建头像
+    const img = document.createElement('img');
+    img.src = '{{ avatar }}'; // 默认头像（服务端会改为发送者头像）
 
-        function sendMessage() {
-            const username = document.getElementById('username').value.trim();
-            const messageInput = document.getElementById('message');
-            const msg = messageInput.value.trim();
-            const message = {
-                username: username,
-                message: msg
-            };
+    // 内容
+    const content = document.createElement('div');
+    content.className = 'chat-content';
+    content.textContent = data;
 
-            if (username && msg ) {
-                socket.send('用户'+ message.username + '说: ' + message.message);
-                messageInput.value  = '';
-            }
-        }
+    bubble.appendChild(img);
+    bubble.appendChild(content);
+    chatBox.appendChild(bubble);
+    chatBox.scrollTop = chatBox.scrollHeight;
+  });
+
+  function sendMessage() {
+    const username = document.getElementById('username').value.trim();
+    const avatar = document.getElementById('avatar').value.trim();
+    const msgInput = document.getElementById('message');
+    const msg = msgInput.value.trim();
+    const room = document.getElementById('room').value.trim();
+
+    if (username && msg && room) {
+      const content = '用户 ' + username + ' 说: ' + msg;
+      socket.send(content);
+      msgInput.value = '';
+    }
+  }
     </script>
+    <style>
+    .chat-bubble {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 10px;
+  }
+
+  .chat-bubble img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+
+  .chat-content {
+    background-color: #f1f1f1;
+    padding: 8px 12px;
+    border-radius: 10px;
+    max-width: 60%;
+    word-break: break-word;
+  }
+    </style>
 {% endblock %}

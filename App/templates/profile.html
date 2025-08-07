@@ -3,6 +3,17 @@
 
 {% block content %}
 <div class="container mt-5" style="max-width: 600px;">
+
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      {% for category, message in messages %}
+        <div class="alert alert-{{ category }} alert-dismissible fade show mt-3" role="alert">
+          {{ message }}
+        </div>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+
   <h2 class="mb-4 text-center">个人信息</h2>
 
   <div class="text-center mb-4">
@@ -12,7 +23,15 @@
   <p><strong>用户名：</strong> {{ user.username }}</p>
   <p><strong>邮箱：</strong> {{ user.email }}</p>
   <p><strong>等级：</strong> {{ user.level }}</p>
+  <p><strong>经验值：</strong> {{ user.exp }}</p>
   <p><strong>注册时间：</strong> {{ user.create_time.strftime('%Y-%m-%d %H:%M') }}</p>
+
+  <div class="d-grid gap-2 mt-4">
+    <form action="{{ url_for('auth.checkin') }}" method="POST">
+      <button type="submit" class="btn btn-warning">✅ 每日签到</button>
+    </form>
+    <a href="{{ url_for('article.post') }}" class="btn btn-info">📝 发布新帖子</a>
+  </div>
 
   <hr>
 
